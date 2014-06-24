@@ -100,10 +100,24 @@ class HTMLOptimizer implements \Twig_NodeVisitorInterface
                     $nodeText = preg_replace('#\s*</title>\s*#ium','</title>', $nodeText);
                 }
 
+                $stripAllSpaces = join('|', array(
+                    'iframe|a|br|p|div|option|noscript|script|style|body|html|head|title|meta|link|form|tr|td|th|table|tbody|tfoot|thead',
+                    'switch|g|polygon|path|foreignObject', //svg
+                    'li', // test
+                ));
+
+                $stripInnerSpaces = join('|', array(
+                    'svg', 'ul'
+                ));
+
                 // некоторые ручные оптимизации
                 $nodeText = preg_replace('#</head>\s+<body\s+#ium','</head><body ', $nodeText);
                 $nodeText = preg_replace('#(</[^>]+>)\s+(</[^>]+>)#ium','$1$2', $nodeText);
-                $nodeText = preg_replace('#\s*(</?(iframe|a|br|p|div|option|noscript|script|style|body|html|head|title|meta|link|form|tr|td|th|table|tbody|tfoot|thead)[^>]*>)\s*#ium','$1', $nodeText);
+
+                $nodeText = preg_replace('#\s*(</?('. $stripAllSpaces . ')[^>]*>)\s*#ium','$1', $nodeText);
+                $nodeText = preg_replace('#(<('. $stripInnerSpaces . ')[^>]*>)\s+#ium','$1', $nodeText);
+                $nodeText = preg_replace('#\s+(</('. $stripInnerSpaces . ')[^>]*>)#ium','$1', $nodeText);
+
                 $nodeText = preg_replace('#(\s+)(</?[^>]*>)\s+#ium','$1$2', $nodeText);
 
                 // оптимизация кавычек
