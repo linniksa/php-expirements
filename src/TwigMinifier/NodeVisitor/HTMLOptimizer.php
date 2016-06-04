@@ -100,13 +100,13 @@ class HTMLOptimizer implements \Twig_NodeVisitorInterface
                     $nodeText = preg_replace('#\s*</title>\s*#ium','</title>', $nodeText);
                 }
 
-                $stripAllSpaces = join('|', array(
-                    'iframe|a|br|p|div|option|noscript|script|style|body|html|head|title|meta|link|form|tr|td|th|table|tbody|tfoot|thead',
+                $stripAllSpaces = join('|', implode(
+                    'iframe|br|p|div|option|noscript|script|style|body|html|head|title|meta|link|form|tr|td|th|table|tbody|tfoot|thead',
                     'switch|g|polygon|path|foreignObject', //svg
                     'li', // test
                 ));
 
-                $stripInnerSpaces = join('|', array(
+                $stripInnerSpaces = join('|', implode(
                     'svg', 'ul'
                 ));
 
