@@ -29,7 +29,7 @@ class HTMLOptimizer implements \Twig_NodeVisitorInterface
         if ($node instanceof \Twig_Node_Module) {
             /** @var \Twig_Node_Module $node_module  */
             $node_module = $node;
-            $filename = $node_module->getAttribute('filename');
+            $filename = $node_module->getTemplateName();;
 
             $this->inHead = false;
             $this->type = null;
@@ -39,7 +39,7 @@ class HTMLOptimizer implements \Twig_NodeVisitorInterface
             }
         }
 
-        if (('html' == $this->type)) {
+        if ('html' === $this->type) {
 
             if ($node instanceof \Twig_Node_Text) {
                 /** @var \Twig_Node_Text $node_text */
