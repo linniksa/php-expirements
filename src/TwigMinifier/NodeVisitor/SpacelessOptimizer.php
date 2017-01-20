@@ -9,7 +9,7 @@ class SpacelessOptimizer implements \Twig_NodeVisitorInterface
 {
     protected $spaceLessBlocks;
 
-    public function enterNode(\Twig_NodeInterface $node, \Twig_Environment $env)
+    public function enterNode(\Twig_Node $node, \Twig_Environment $env)
     {
         if ($node instanceof \Twig_Node_Module) {
             $this->spaceLessBlocks =  array();
@@ -33,7 +33,7 @@ class SpacelessOptimizer implements \Twig_NodeVisitorInterface
         return $node;
     }
 
-    public function leaveNode(\Twig_NodeInterface $node, \Twig_Environment $env)
+    public function leaveNode(\Twig_Node $node, \Twig_Environment $env)
     {
         if ($node instanceof \Twig_Node_Spaceless) {
             array_shift($this->spaceLessBlocks);

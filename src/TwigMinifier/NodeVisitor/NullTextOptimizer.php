@@ -10,7 +10,7 @@ use TwigMinifier\Node\NullNode;
 class NullTextOptimizer implements \Twig_NodeVisitorInterface
 {
 
-    public function enterNode(\Twig_NodeInterface $node, \Twig_Environment $env)
+    public function enterNode(\Twig_Node $node, \Twig_Environment $env)
     {
         /** @var \Twig_Node $node */
         if ($node instanceof \Twig_Node_Text && '' == $node->getAttribute('data')) {
@@ -33,7 +33,7 @@ class NullTextOptimizer implements \Twig_NodeVisitorInterface
         return $node;
     }
 
-    public function leaveNode(\Twig_NodeInterface $node, \Twig_Environment $env)
+    public function leaveNode(\Twig_Node $node, \Twig_Environment $env)
     {
         return $node;
     }

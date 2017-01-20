@@ -24,7 +24,7 @@ class HTMLOptimizer implements \Twig_NodeVisitorInterface
         return false;
     }
 
-    public function enterNode(\Twig_NodeInterface $node, \Twig_Environment $env)
+    public function enterNode(\Twig_Node $node, \Twig_Environment $env)
     {
         if ($node instanceof \Twig_Node_Module) {
             /** @var \Twig_Node_Module $node_module  */
@@ -145,7 +145,7 @@ class HTMLOptimizer implements \Twig_NodeVisitorInterface
         return $this->lastEnterNode = $node;
     }
 
-    public function leaveNode(\Twig_NodeInterface $node, \Twig_Environment $env)
+    public function leaveNode(\Twig_Node $node, \Twig_Environment $env)
     {
         if (isset($this->tree[0]) && $this->tree[0] == $node) {
             array_shift($this->tree);
